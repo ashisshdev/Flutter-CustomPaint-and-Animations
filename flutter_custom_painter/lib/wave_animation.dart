@@ -18,7 +18,6 @@ class WaveAnimation extends StatefulWidget {
   final double secondRiseStartMax;
   final double heightEndMin;
   final double heightEndMax;
-  final int delay;
   final Color color;
 
   const WaveAnimation(
@@ -31,12 +30,10 @@ class WaveAnimation extends StatefulWidget {
       this.secondRiseStartMax = 1.8,
       this.heightEndMin = 1.4,
       this.heightEndMax = 1.6,
-      this.delay = 800,
       required this.color});
 
   @override
-  State<WaveAnimation> createState() =>
-      _WaveAnimationState();
+  State<WaveAnimation> createState() => _WaveAnimationState();
 }
 
 class _WaveAnimationState extends State<WaveAnimation>
@@ -58,99 +55,84 @@ class _WaveAnimationState extends State<WaveAnimation>
     super.initState();
 
     firstController = AnimationController(
-        vsync: this,
-        duration: const Duration(milliseconds: 1500));
+        vsync: this, duration: const Duration(milliseconds: 1500));
     firstAnimation = Tween<double>(
-            begin: widget.heightStartMin,
-            end: widget.heightStartMax)
+            begin: widget.heightStartMin, end: widget.heightStartMax)
         .animate(CurvedAnimation(
-            parent: firstController,
-            curve: Curves.easeInOut))
+            parent: firstController, curve: Curves.easeInOut))
       ..addListener(() {
         setState(() {});
       })
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           firstController.reverse();
-        } else if (status ==
-            AnimationStatus.dismissed) {
+        } else if (status == AnimationStatus.dismissed) {
           firstController.forward();
         }
       });
 
     secondController = AnimationController(
-        vsync: this,
-        duration: const Duration(milliseconds: 1500));
+        vsync: this, duration: const Duration(milliseconds: 1500));
     secondAnimation = Tween<double>(
             begin: widget.firstRiseStartMin,
             end: widget.firstRiseStartMax)
         .animate(CurvedAnimation(
-            parent: secondController,
-            curve: Curves.easeInOut))
+            parent: secondController, curve: Curves.easeInOut))
       ..addListener(() {
         setState(() {});
       })
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           secondController.reverse();
-        } else if (status ==
-            AnimationStatus.dismissed) {
+        } else if (status == AnimationStatus.dismissed) {
           secondController.forward();
         }
       });
 
     thirdController = AnimationController(
-        vsync: this,
-        duration: const Duration(milliseconds: 1500));
+        vsync: this, duration: const Duration(milliseconds: 1500));
     thirdAnimation = Tween<double>(
             begin: widget.secondRiseStartMin,
             end: widget.secondRiseStartMax)
         .animate(CurvedAnimation(
-            parent: thirdController,
-            curve: Curves.easeInOut))
+            parent: thirdController, curve: Curves.easeInOut))
       ..addListener(() {
         setState(() {});
       })
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           thirdController.reverse();
-        } else if (status ==
-            AnimationStatus.dismissed) {
+        } else if (status == AnimationStatus.dismissed) {
           thirdController.forward();
         }
       });
 
     fourthController = AnimationController(
-        vsync: this,
-        duration: const Duration(milliseconds: 1500));
+        vsync: this, duration: const Duration(milliseconds: 1500));
     fourthAnimation = Tween<double>(
-            begin: widget.heightEndMin,
-            end: widget.heightEndMax)
+            begin: widget.heightEndMin, end: widget.heightEndMax)
         .animate(CurvedAnimation(
-            parent: fourthController,
-            curve: Curves.easeInOut))
+            parent: fourthController, curve: Curves.easeInOut))
       ..addListener(() {
         setState(() {});
       })
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           fourthController.reverse();
-        } else if (status ==
-            AnimationStatus.dismissed) {
+        } else if (status == AnimationStatus.dismissed) {
           fourthController.forward();
         }
       });
 
-    Timer(Duration(seconds: widget.delay + 1500), () {
+    Timer(const Duration(seconds: 2), () {
       firstController.forward();
     });
 
-    Timer(Duration(milliseconds: widget.delay + 800),
-        () {
+    Timer(const Duration(milliseconds: 1600), () {
       secondController.forward();
     });
 
-    Timer(Duration(milliseconds: widget.delay), () {
+    Timer(const Duration(milliseconds: 800), () {
       thirdController.forward();
     });
 
@@ -224,8 +206,7 @@ class WavePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(
-      covariant CustomPainter oldDelegate) {
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return true;
   }
 }
