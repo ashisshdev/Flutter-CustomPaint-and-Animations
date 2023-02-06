@@ -118,7 +118,6 @@ class ShapePainter extends CustomPainter {
     var path = Path();
 
     var angle = (math.pi * 2) / sides;
-    print(angle);
 
     Offset center = Offset(size.width / 2, size.height / 2);
     Offset startPoint = Offset(radius * math.cos(radians), radius * math.sin(radians));
