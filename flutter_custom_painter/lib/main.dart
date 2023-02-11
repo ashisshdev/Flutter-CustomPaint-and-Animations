@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_const_declarations, prefer_const_constructors
+// ignore_for_file: prefer_const_declarations, prefer_const_constructors, avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_painter/particles_tunnel.dart';
 
 void main() {
   // for waving flag
@@ -24,6 +23,50 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: ParticlesTunnel());
+        home: Random());
+  }
+}
+
+class Random extends StatefulWidget {
+  const Random({super.key});
+
+  @override
+  State<Random> createState() => _RandomState();
+}
+
+class _RandomState extends State<Random>
+    with TickerProviderStateMixin {
+  late AnimationController animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 10),
+    );
+    animationController.forward();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: RotationTransition(
+          turns: animationController.view,
+        ),
+        // child: AnimatedBuilder(
+        //     animation: animationController,
+        //     builder: (context, child) {
+        //       return SizedBox(
+        //         height: 10 * animationController.value,
+        //         child: child,
+        //       );
+        //     },
+        //     child: Container(
+        //       color: Colors.green,
+        //     )),
+      ),
+    );
   }
 }
