@@ -28,10 +28,10 @@ class AnimationPractice extends StatefulWidget {
   const AnimationPractice({Key? key}) : super(key: key);
 
   @override
-  _AnimationPracticeState createState() => _AnimationPracticeState();
+  AnimationPracticeState createState() => AnimationPracticeState();
 }
 
-class _AnimationPracticeState extends State<AnimationPractice>
+class AnimationPracticeState extends State<AnimationPractice>
     with TickerProviderStateMixin {
   late final AnimationController animationController =
       AnimationController(

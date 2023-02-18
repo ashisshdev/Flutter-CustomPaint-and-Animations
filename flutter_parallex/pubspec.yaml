@@ -17,6 +17,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
+  carousel_slider:
+  sensors_plus:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -42,7 +45,12 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
-  #   - images/a_dot_ham.jpeg
+    - assets/paintings/
+    - assets/places/horizontal/
+    - assets/places/vertical/
+    - assets/fg_bg/
+    - assets/fgbg/
+    #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -55,10 +63,6 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: timesBold
-      fonts:
-        - asset: assets/timesBold.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

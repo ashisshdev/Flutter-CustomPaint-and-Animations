@@ -6,10 +6,10 @@ class AnimatedCustomPainter extends StatefulWidget {
   const AnimatedCustomPainter({Key? key}) : super(key: key);
 
   @override
-  _AnimatedCustomPainterState createState() => _AnimatedCustomPainterState();
+  AnimatedCustomPainterState createState() => AnimatedCustomPainterState();
 }
 
-class _AnimatedCustomPainterState extends State<AnimatedCustomPainter> with TickerProviderStateMixin {
+class AnimatedCustomPainterState extends State<AnimatedCustomPainter> with TickerProviderStateMixin {
   late Animation<double> radiusAnimation;
   late Animation<double> rotationAnimation;
 

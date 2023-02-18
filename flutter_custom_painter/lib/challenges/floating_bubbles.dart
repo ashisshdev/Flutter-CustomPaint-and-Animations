@@ -25,10 +25,10 @@ class AnimWidget extends StatefulWidget {
   const AnimWidget({Key? key}) : super(key: key);
 
   @override
-  _AnimWidgetState createState() => _AnimWidgetState();
+  AnimWidgetState createState() => AnimWidgetState();
 }
 
-class _AnimWidgetState extends State<AnimWidget> {
+class AnimWidgetState extends State<AnimWidget> {
   late Timer timer;
 
   final particles = List.generate(300, (index) => Particle());

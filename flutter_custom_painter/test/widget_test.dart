@@ -5,14 +5,5 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-
-import 'package:flutter_custom_painter/main.dart';
-
 void main() {
-  Offset offset1 = const Offset(215.5, 207.5);
-  Offset offset2 = const Offset(100, 100);
-
-  print(offset1 - offset2);
 }

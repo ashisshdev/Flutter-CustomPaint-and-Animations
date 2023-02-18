@@ -26,7 +26,6 @@ class _CubiclesWaveState extends State<CubiclesWave>
 
     animationController.addListener(() {
       setState(() {});
-      print(animationController.value.toString());
 //      dev.log();
     });
   }
@@ -149,7 +148,6 @@ class _MarchingAntsState extends State<MarchingAnts>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     animationController = AnimationController(
       vsync: this,
@@ -287,7 +285,6 @@ class _EnlightenedHeartState extends State<EnlightenedHeart>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     animationController = AnimationController(
       vsync: this,
@@ -521,7 +518,6 @@ class _ClockWorkState extends State<ClockWork>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     animationController = AnimationController(
       vsync: this,

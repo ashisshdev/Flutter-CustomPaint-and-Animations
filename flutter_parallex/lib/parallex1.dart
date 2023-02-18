@@ -1,139 +1,124 @@
 import 'package:flutter/material.dart';
 
-/// Basics
-/// inspired from
-/// https://medium.com/@taydinadnan/flutter-parallax-animasyonu-nas%C4%B1l-yap%C4%B1l%C4%B1r-b1294484547d
-/// and
-/// https://fidev.io/tickets-challenge-parallax/
-class ParallexOne extends StatefulWidget {
-  const ParallexOne({Key? key}) : super(key: key);
+/// We use positioned widget and change its parameters based on scroll value from ScrollListener
+
+class ParallaxOne extends StatefulWidget {
+  const ParallaxOne({Key? key}) : super(key: key);
 
   @override
-  State<ParallexOne> createState() => _ParallexOneState();
+  ParallaxOneState createState() => ParallaxOneState();
 }
 
-class _ParallexOneState extends State<ParallexOne> {
-  late PageController pageController;
-  double pageOffset = 0;
+class ParallaxOneState extends State<ParallaxOne> {
+  double rateZero = 0;
+  double rateOne = 0;
+  double rateTwo = 0;
+  double rateThree = 0;
+  double rateFour = 0;
+  double rateFive = 0;
+  double rateSix = 0;
+  double rateSeven = 0;
+  double rateEight = 90;
 
-  @override
-  void initState() {
-    super.initState();
-    pageController = PageController(viewportFraction: 0.7);
-    pageController.addListener(() {
-      setState(() {
-        pageOffset = pageController.page!;
-      });
-    });
-  }
+  late String asset;
+  late double top;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/bg.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  SizedBox(height: 30),
-                  Text(
-                    'Vincent\nvan Gogh',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 50,
-                      letterSpacing: 2,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    '30 March 1853-29 July 1890',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    'Vincent Willem van Gogh was a Dutch post-impressionist painter who posthumously became one of the most famous and influential figures in the history of Western art.',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: 20, bottom: 20),
-                  child: Text(
-                    'Highlight Paintings',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
+      body: NotificationListener(
+        onNotification: (v) {
+          if (v is ScrollUpdateNotification) {
+            //only if scroll update notification is triggered
+            setState(() {
+              rateEight -= v.scrollDelta! / 1;
+              rateSeven -= v.scrollDelta! / 1.5;
+              rateSix -= v.scrollDelta! / 2;
+              rateFive -= v.scrollDelta! / 2.5;
+              rateFour -= v.scrollDelta! / 3;
+              rateThree -= v.scrollDelta! / 3.5;
+              rateTwo -= v.scrollDelta! / 4;
+              rateOne -= v.scrollDelta! / 4.5;
+              rateZero -= v.scrollDelta! / 5;
+            });
+          }
+          return true;
+        },
+        child: Stack(
+          children: <Widget>[
+            ParallaxWidget(top: rateZero, color: Colors.red),
+            ParallaxWidget(top: rateOne, color: Colors.yellow),
+            ParallaxWidget(top: rateTwo, color: Colors.green),
+            ParallaxWidget(top: rateThree, color: Colors.blue),
+            ParallaxWidget(top: rateFour, color: Colors.black),
+            ParallaxWidget(top: rateFive, color: Colors.red),
+            ParallaxWidget(top: rateSix, color: Colors.yellow),
+            ParallaxWidget(top: rateSeven, color: Colors.green),
+            ParallaxWidget(top: rateEight, color: Colors.blue),
+            ListView(
+              children: <Widget>[
+                Container(
+                  height: 600,
+                  color: Colors.transparent,
                 ),
                 Container(
-                  height: 400,
-                  padding: const EdgeInsets.only(bottom: 30),
-                  child: PageView.builder(
-                      itemCount: paintings.length,
-                      controller: pageController,
-                      itemBuilder: (context, i) {
-                        return Transform.scale(
-                          scale: 1,
-                          child: Container(
-                            padding: const EdgeInsets.only(right: 20),
-                            child: Stack(
-                              children: [
-                                ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.circular(15),
-                                  child: Image.asset(
-                                    paintings[i]['image'],
-                                    height: 370,
-                                    fit: BoxFit.cover,
-                                    alignment: Alignment(
-                                        -pageOffset.abs() + i, 0),
-                                  ),
-                                ),
-                                Positioned(
-                                  left: 10,
-                                  bottom: 20,
-                                  right: 10,
-                                  child: Text(
-                                    paintings[i]['name'],
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 35,
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      }),
-                )
+                  color: const Color(0xff210002),
+                  width: double.infinity,
+                  padding: const EdgeInsets.only(top: 70),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      const Text(
+                        "Parallax In",
+                        style: TextStyle(
+                            fontSize: 30,
+                            letterSpacing: 1.8,
+                            color: Color(0xffffaf00)),
+                      ),
+                      const Text(
+                        "Flutter",
+                        style: TextStyle(
+                            fontSize: 51,
+                            letterSpacing: 1.8,
+                            color: Color(0xffffaf00)),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const SizedBox(
+                        width: 190,
+                        child: Divider(
+                          height: 1,
+                          color: Color(0xffffaf00),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        "Observe the color boxes moving at different speeds with respect to the scroll",
+                        style: TextStyle(
+                          fontSize: 20,
+                          letterSpacing: 1.8,
+                          color: Color(0xffffaf00),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      Container(
+                        height: 600,
+                        decoration: const BoxDecoration(
+                            gradient: LinearGradient(colors: [
+                          Colors.green,
+                          Colors.yellow
+                        ])),
+                      ),
+                    ],
+                  ),
+                ),
               ],
-            ),
+            )
           ],
         ),
       ),
@@ -141,33 +126,32 @@ class _ParallexOneState extends State<ParallexOne> {
   }
 }
 
-List<Map> paintings = [
-  {
-    'image': 'assets/painting6.jpeg',
-    'name': 'The Sower',
-  },
-  {
-    'image': 'assets/painting2.jpg',
-    'name': 'The Starry Night',
-  },
-  {
-    'image': 'assets/painting3.jpg',
-    'name': 'The Potato Eaters',
-  },
-  {
-    'image': 'assets/painting4.jpg',
-    'name': 'Irises',
-  },
-  {
-    'image': 'assets/painting5.jpg',
-    'name': 'Starry Night Over the Rhône',
-  },
-  {
-    'image': 'assets/painting7.jpg',
-    'name': 'Landscape with Snow',
-  },
-  {
-    'image': 'assets/painting8.jpg',
-    'name': 'The Night Café',
-  },
-];
+class ParallaxWidget extends StatelessWidget {
+  const ParallaxWidget({
+    Key? key,
+    required this.top,
+    required this.color,
+  }) : super(key: key);
+
+  final double top;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: top,
+      right: 0,
+      left: 0,
+      child: Container(
+        height: 400,
+        decoration: BoxDecoration(
+            color: color,
+            border: Border.all(color: Colors.green),
+            borderRadius:
+                const BorderRadius.all(Radius.circular(10))),
+        // child: Image.asset("assets/parallax1/$asset.png",
+        //     fit: BoxFit.fill),
+      ),
+    );
+  }
+}

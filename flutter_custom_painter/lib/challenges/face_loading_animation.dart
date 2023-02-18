@@ -154,30 +154,30 @@ class _FaceLoadingAnimationState extends State<FaceLoadingAnimation>
 class FacePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final double height = size.height;
-    final double width = size.width;
+    // final double height = size.height;
+    // final double width = size.width;
 
     final Paint paint = Paint()
       ..color = Colors.blue
       ..strokeWidth = 12
       ..style = PaintingStyle.stroke;
 
-    final a = const Offset(0, 0);
-    final b = const Offset(50, 50);
+    const a = Offset(0, 0);
+    const b = Offset(50, 50);
     final rect = Rect.fromPoints(a, b);
     final roundedRect =
         RRect.fromRectAndRadius(rect, const Radius.circular(100));
     canvas.drawRRect(roundedRect, paint);
 
-    final c = const Offset(100, 0);
-    final d = const Offset(150, 50);
+    const c = Offset(100, 0);
+    const d = Offset(150, 50);
     final rect2 = Rect.fromPoints(c, d);
     final roundedRect2 =
         RRect.fromRectAndRadius(rect2, const Radius.circular(100));
     canvas.drawRRect(roundedRect2, paint);
 
-    final e = const Offset(0, 100);
-    final f = const Offset(50, 150);
+    const e = Offset(0, 100);
+    const f = Offset(50, 150);
     final rect3 = Rect.fromPoints(e, f);
     final roundedRect3 =
         RRect.fromRectAndRadius(rect3, const Radius.circular(100));
