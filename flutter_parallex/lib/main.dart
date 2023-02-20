@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_parallex/parallax5.dart';
+import 'package:flutter_parallex/parallax_best.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +20,8 @@ class MyApp extends StatelessWidget {
       // home: const ParallaxThreeVertical(),
       // home: const ParallaxThreeHorizontal(),
       // home: const ParallaxFourHorizontal(),
-      home: const ParallaxFiveHorizontal(),
+      // home: const ParallaxFiveHorizontal(),
+      home: const BestParallax(),
     );
   }
 }

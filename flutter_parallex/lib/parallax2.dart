@@ -6,10 +6,12 @@ class ParallaxTwoHorizontal extends StatefulWidget {
   const ParallaxTwoHorizontal({Key? key}) : super(key: key);
 
   @override
-  State<ParallaxTwoHorizontal> createState() => _ParallaxTwoHorizontalState();
+  State<ParallaxTwoHorizontal> createState() =>
+      _ParallaxTwoHorizontalState();
 }
 
-class _ParallaxTwoHorizontalState extends State<ParallaxTwoHorizontal> {
+class _ParallaxTwoHorizontalState
+    extends State<ParallaxTwoHorizontal> {
   late PageController pageController;
   double pageOffset = 0;
 
@@ -100,25 +102,30 @@ class _ParallaxTwoHorizontalState extends State<ParallaxTwoHorizontal> {
                             child: Stack(
                               children: [
                                 ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius:
+                                      BorderRadius.circular(15),
                                   child: Image.asset(
                                     myPaintings[i].image,
                                     height: 370,
                                     fit: BoxFit.cover,
-                                    alignment:
-                                        Alignment(-pageOffset.abs() + i, 0),
+                                    alignment: Alignment(
+                                        -pageOffset.abs() + i, 0),
                                   ),
                                 ),
                                 Positioned(
                                   left: 10,
                                   bottom: 20,
                                   right: 10,
-                                  child: Text(
-                                    myPaintings[i].name,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 35,
-                                      fontStyle: FontStyle.italic,
+                                  child: Transform.translate(
+                                    offset: Offset(
+                                        -pageOffset.abs() + i, 0),
+                                    child: Text(
+                                      myPaintings[i].name,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 35,
+                                        fontStyle: FontStyle.italic,
+                                      ),
                                     ),
                                   ),
                                 )
@@ -143,7 +150,8 @@ class ParallaxTwoVertical extends StatefulWidget {
   const ParallaxTwoVertical({Key? key}) : super(key: key);
 
   @override
-  State<ParallaxTwoVertical> createState() => _ParallaxTwoVerticalState();
+  State<ParallaxTwoVertical> createState() =>
+      _ParallaxTwoVerticalState();
 }
 
 class _ParallaxTwoVerticalState extends State<ParallaxTwoVertical> {
@@ -170,7 +178,8 @@ class _ParallaxTwoVerticalState extends State<ParallaxTwoVertical> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding:
+                  EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: Text(
                 'Travel the world',
                 style: TextStyle(
@@ -191,12 +200,13 @@ class _ParallaxTwoVerticalState extends State<ParallaxTwoVertical> {
                       margin: const EdgeInsets.all(10),
                       child: Container(
                         decoration: const BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(15))),
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(15))),
                         child: Image.asset(
                           myPlacesVertical[i].image,
                           fit: BoxFit.cover,
-                          alignment: Alignment(0, pageOffset.abs() - i),
+                          alignment:
+                              Alignment(0, pageOffset.abs() - i),
                         ),
                       ),
                     );

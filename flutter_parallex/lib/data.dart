@@ -159,14 +159,12 @@ List<Map> multiplePlaces = [
   },
   {
     'imagef': 'assets/fg_bg/mountain_fg.png',
-    'imageb': 'assets/fg_bg/paris_bg.jpg',
-
+    'imageb': 'assets/fg_bg/mountain_bg.jpg',
     'name': 'Iceland',
   },
   {
     'imagef': 'assets/fg_bg/paris_fg.png',
-    'imageb': 'assets/fg_bg/mountain_bg.jpg',
-
+    'imageb': 'assets/fg_bg/paris_bg.jpg',
     'name': 'Paris',
   },
 ];
