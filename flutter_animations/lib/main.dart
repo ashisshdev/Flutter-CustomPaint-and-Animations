@@ -1,7 +1,6 @@
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animations/moving_car.dart';
-
+import 'package:flutter_animations/loading_face_animation.dart';
 // import 'hahaanimation.dart';
 
 void main() {
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MovingCar(),
+      home: const LoadingFaceAnimationScreen(),
     );
   }
 }
@@ -104,3 +103,4 @@ class AnimationPracticeState extends State<AnimationPractice>
     );
   }
 }
+
