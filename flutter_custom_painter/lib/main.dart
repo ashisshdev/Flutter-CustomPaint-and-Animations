@@ -1,12 +1,12 @@
 // ignore_for_file: prefer_const_declarations, prefer_const_constructors, avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_custom_painter/challenges/mesmerizing_sticks.dart';
+// import 'package:flutter_custom_painter/before_after_clipper.dart';
+import 'package:flutter_custom_painter/torch.dart';
 
 void main() {
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-      overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
+  // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+  //     overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
   // for waving flag
   // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
   //     statusBarColor: Color(0xFFFF9933),
@@ -22,13 +22,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: MesmerizingSticks()
-        // home: HomePage()
-        );
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: Torch(),
+      // home: MesmerizingSticks()
+      // home: HomePage()
+    );
   }
 }

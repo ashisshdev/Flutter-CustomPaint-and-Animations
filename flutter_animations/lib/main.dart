@@ -1,6 +1,7 @@
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animations/loading_face_animation.dart';
+
+import 'hypnotising patterns/circles.dart';
 // import 'hahaanimation.dart';
 
 void main() {
@@ -19,7 +20,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LoadingFaceAnimationScreen(),
+      // home: const LoadingFaceAnimationScreen(),
+      home: const HypnoCircles(),
+      // home: const HypnoSquares(),
     );
   }
 }
@@ -31,32 +34,20 @@ class AnimationPractice extends StatefulWidget {
   AnimationPracticeState createState() => AnimationPracticeState();
 }
 
-class AnimationPracticeState extends State<AnimationPractice>
-    with TickerProviderStateMixin {
+class AnimationPracticeState extends State<AnimationPractice> with TickerProviderStateMixin {
   late final AnimationController animationController =
-      AnimationController(
-          vsync: this, duration: const Duration(seconds: 4))
-        ..repeat(reverse: true);
+      AnimationController(vsync: this, duration: const Duration(seconds: 4))..repeat(reverse: true);
 
-  late final Animation<Offset> animation =
-      Tween(begin: Offset.zero, end: const Offset(0.8, 0.8)).animate(
-          CurvedAnimation(
-              parent: animationController, curve: Curves.easeInOut));
+  late final Animation<Offset> animation = Tween(begin: Offset.zero, end: const Offset(0.8, 0.8))
+      .animate(CurvedAnimation(parent: animationController, curve: Curves.easeInOut));
 
   late final AnimationController animationController2 =
-      AnimationController(
-          vsync: this, duration: const Duration(seconds: 3))
-        ..repeat(reverse: true);
-  late final Animation<Color?> animation2 =
-      ColorTween(begin: Colors.white, end: Colors.green).animate(
-          CurvedAnimation(
-              parent: animationController2,
-              curve: Curves.bounceInOut));
+      AnimationController(vsync: this, duration: const Duration(seconds: 3))..repeat(reverse: true);
+  late final Animation<Color?> animation2 = ColorTween(begin: Colors.white, end: Colors.green)
+      .animate(CurvedAnimation(parent: animationController2, curve: Curves.bounceInOut));
 
   late final AnimationController animationController3 =
-      AnimationController(
-          vsync: this, duration: const Duration(seconds: 3))
-        ..repeat(reverse: true);
+      AnimationController(vsync: this, duration: const Duration(seconds: 3))..repeat(reverse: true);
   late final Animation<double> animation3 =
       Tween(begin: 0.0, end: 2.0).animate(animationController3);
 
@@ -103,4 +94,3 @@ class AnimationPracticeState extends State<AnimationPractice>
     );
   }
 }
-

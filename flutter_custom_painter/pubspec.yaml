@@ -13,6 +13,8 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
+  chewie: ^1.5.0
+  video_player: ^2.6.1
 
 dev_dependencies:
   flutter_test:
@@ -27,6 +29,8 @@ flutter:
   assets:
     - assets/
     - assets/waving_indian_flag/
+    - assets/before_after/
+    - assets/torch/
 
   # fonts:
   #   - family: Schyler
