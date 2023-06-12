@@ -43,7 +43,7 @@ class TorchState extends State<Torch> {
           children: [
             Center(
               child: Image.asset(
-                ryuk,
+                limbo,
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 fit: BoxFit.cover,

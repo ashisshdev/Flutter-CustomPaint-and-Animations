@@ -1,40 +1,21 @@
-import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
-
 // inspired from https://www.cutout.pro/
+import 'package:video_player/video_player.dart';
 
 const String rawImage = 'assets/before_after/image_raw.jpg';
 const String finalImage = 'assets/before_after/image_processed.png';
 
-class _BeforeAfterState extends State<BeforeAfter> {
-  double imageWidthValue = 160;
-  double videoWidthValue = 190;
+const String rawVideo = 'assets/before_after/video_raw.mp4';
+const String finalVideo = 'assets/before_after/video_processed.mp4';
 
-  late VideoPlayerController videoPlayerController;
-  late ChewieController chewieController;
+class BeforeAfter extends StatefulWidget {
+  const BeforeAfter({super.key});
 
   @override
-  void initState() async {
-    videoPlayerController = VideoPlayerController.asset("dataSource");
-    await videoPlayerController.initialize();
+  State<BeforeAfter> createState() => _BeforeAfterState();
+}
 
-    chewieController = ChewieController(
-      videoPlayerController: videoPlayerController,
-      autoPlay: true,
-      looping: true,
-    );
-
-    super.initState();
-  }
-
-@override
-  void dispose() {
-    videoPlayerController.dispose();
-    chewieController.dispose();
-    super.dispose();
-  }
-
+class _BeforeAfterState extends State<BeforeAfter> {
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
@@ -48,105 +29,9 @@ class _BeforeAfterState extends State<BeforeAfter> {
             SizedBox(
               height: h * 0.4,
               width: w,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Positioned.fill(
-                      left: 0,
-                      child: Center(
-                        child: SizedBox(
-                          width: w * 0.95,
-                          child: ClipPath(
-                            clipper: ClipperFromRight(width: imageWidthValue),
-                            child: Image.asset(
-                              rawImage,
-                              fit: BoxFit.cover,
-                              alignment: Alignment.center,
-                            ),
-                          ),
-                        ),
-                      )),
-                  Positioned.fill(
-                    child: Center(
-                      child: SizedBox(
-                          width: w * 0.95,
-                          child: Image.asset(
-                            finalImage,
-                            fit: BoxFit.cover,
-                            alignment: Alignment.center,
-                          )),
-                    ),
-                  ),
-                  SliderTheme(
-                    data: SliderTheme.of(context).copyWith(
-                        overlayShape: SliderComponentShape.noOverlay,
-                        activeTrackColor: Colors.transparent,
-                        inactiveTrackColor: Colors.transparent,
-                        thumbShape: CustomSliderThumbShape(
-                            sliderheight: h * 0.4, sliderwidth: imageWidthValue)),
-                    child: Slider(
-                      min: 0.0,
-                      max: w * 0.95,
-                      value: imageWidthValue,
-                      onChanged: (value) {
-                        setState(() {
-                          imageWidthValue = value;
-                        });
-                      },
-                    ),
-                  )
-                ],
-              ),
+              child: const Images(),
             ),
-            SizedBox(
-              height: h * 0.4,
-              width: w,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Positioned.fill(
-                      left: 0,
-                      child: Center(
-                        child: SizedBox(
-                          width: w * 0.95,
-                          child: ClipPath(
-                            clipper: ClipperFromRight(width: videoWidthValue),
-                            child: VideoPlayer(videoPlayerController),  
-                          ),
-                        ),
-                      )),
-                  Positioned.fill(
-                    child: Center(
-                      child: SizedBox(
-                          width: w * 0.95,
-                          child: Image.asset(
-                            finalImage,
-                            fit: BoxFit.cover,
-                            alignment: Alignment.center,
-                          )),
-                    ),
-                  ),
-                  SliderTheme(
-                    data: SliderTheme.of(context).copyWith(
-                        overlayShape: SliderComponentShape.noOverlay,
-                        activeTrackColor: Colors.transparent,
-                        inactiveTrackColor: Colors.transparent,
-                        thumbShape: CustomSliderThumbShape(
-                            sliderheight: h * 0.4, sliderwidth: videoWidthValue)),
-                    child: Slider(
-                      min: 0.0,
-                      max: w * 0.95,
-                      value: videoWidthValue,
-                      onChanged: (value) {
-                        setState(() {
-                          videoWidthValue = value;
-                        });
-                      },
-                    ),
-                  )
-                ],
-              ),
-            )
+            SizedBox(height: h * 0.3, width: w, child: const Videos())
           ],
         ),
       ),
@@ -154,11 +39,198 @@ class _BeforeAfterState extends State<BeforeAfter> {
   }
 }
 
-class BeforeAfter extends StatefulWidget {
-  const BeforeAfter({super.key});
+class Videos extends StatefulWidget {
+  const Videos({Key? key}) : super(key: key);
 
   @override
-  State<BeforeAfter> createState() => _BeforeAfterState();
+  State<Videos> createState() => _VideosState();
+}
+
+class _VideosState extends State<Videos> {
+  ValueNotifier<double> videoWidthValue = ValueNotifier(190.0);
+
+  late VideoPlayerController _rawVideoController;
+  late Future<void> _initializeRawVideoPlayerFuture;
+
+  late VideoPlayerController _finalVideoController;
+  late Future<void> _initializeFinalVideoPlayerFuture;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _rawVideoController = VideoPlayerController.asset(rawVideo);
+    _initializeRawVideoPlayerFuture = _rawVideoController.initialize();
+
+    _finalVideoController = VideoPlayerController.asset(finalVideo);
+    _initializeFinalVideoPlayerFuture = _finalVideoController.initialize();
+  }
+
+  @override
+  void dispose() {
+    _rawVideoController.dispose();
+    _finalVideoController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
+    final h = MediaQuery.of(context).size.height;
+
+    return FutureBuilder(
+      future: _initializeRawVideoPlayerFuture,
+      builder: (context, rawVideoSnapshot) {
+        if (rawVideoSnapshot.connectionState == ConnectionState.done) {
+          // If the VideoPlayerController has finished initialization, use
+          // the data it provides to limit the aspect ratio of the video.
+          return FutureBuilder(
+            future: _initializeFinalVideoPlayerFuture,
+            builder: (context, finalVideoSnapshot) {
+              if (finalVideoSnapshot.connectionState == ConnectionState.done) {
+                _rawVideoController
+                  ..play()
+                  ..setLooping(true);
+                _finalVideoController
+                  ..play()
+                  ..setLooping(true);
+                return Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Positioned.fill(
+                      left: 0,
+                      child: Center(
+                        child: SizedBox(
+                          width: w * 0.95,
+                          child: ClipPath(
+                            child: VideoPlayer(_finalVideoController),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned.fill(
+                        left: 0,
+                        child: Center(
+                          child: SizedBox(
+                            width: w * 0.95,
+                            child: ValueListenableBuilder<double>(
+                              valueListenable: videoWidthValue,
+                              builder: (context, width, child) {
+                                return ClipPath(
+                                  clipper: ClipperFromRight(width: width),
+                                  child: child,
+                                );
+                              },
+                              child: VideoPlayer(_rawVideoController),
+                            ),
+                          ),
+                        )),
+                    ValueListenableBuilder<double>(
+                      valueListenable: videoWidthValue,
+                      builder: (context, width, child) {
+                        return SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                              overlayShape: SliderComponentShape.noOverlay,
+                              activeTrackColor: Colors.transparent,
+                              inactiveTrackColor: Colors.transparent,
+                              thumbShape: CustomSliderThumbShape(
+                                  sliderheight: h * 0.4, sliderwidth: width)),
+                          child: Slider(
+                            min: 0.0,
+                            max: w * 0.95,
+                            value: width,
+                            onChanged: (value) {
+                              setState(() {
+                                videoWidthValue.value = value;
+                              });
+                            },
+                          ),
+                        );
+                      },
+                    )
+                  ],
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          );
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
+}
+
+class Images extends StatefulWidget {
+  const Images({super.key});
+
+  @override
+  State<Images> createState() => _ImagesState();
+}
+
+class _ImagesState extends State<Images> {
+  double imageWidthValue = 160;
+
+  @override
+  Widget build(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
+    final h = MediaQuery.of(context).size.height;
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Positioned.fill(
+            left: 0,
+            child: Center(
+              child: SizedBox(
+                width: w * 0.95,
+                child: ClipPath(
+                  clipper: ClipperFromRight(width: imageWidthValue),
+                  child: Image.asset(
+                    rawImage,
+                    fit: BoxFit.cover,
+                    alignment: Alignment.center,
+                  ),
+                ),
+              ),
+            )),
+        Positioned.fill(
+          child: Center(
+            child: SizedBox(
+                width: w * 0.95,
+                child: Image.asset(
+                  finalImage,
+                  fit: BoxFit.cover,
+                  alignment: Alignment.center,
+                )),
+          ),
+        ),
+        SliderTheme(
+          data: SliderTheme.of(context).copyWith(
+              overlayShape: SliderComponentShape.noOverlay,
+              activeTrackColor: Colors.transparent,
+              inactiveTrackColor: Colors.transparent,
+              thumbShape: CustomSliderThumbShape(
+                  sliderheight: h * 0.4, sliderwidth: imageWidthValue)),
+          child: Slider(
+            min: 0.0,
+            max: w * 0.95,
+            value: imageWidthValue,
+            onChanged: (value) {
+              setState(() {
+                imageWidthValue = value;
+              });
+            },
+          ),
+        )
+      ],
+    );
+  }
 }
 
 class ClipperFromRight extends CustomClipper<Path> {

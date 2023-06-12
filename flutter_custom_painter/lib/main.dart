@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_declarations, prefer_const_constructors, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_painter/before_after_clipper.dart';
 // import 'package:flutter_custom_painter/before_after_clipper.dart';
-import 'package:flutter_custom_painter/torch.dart';
 
 void main() {
   // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
@@ -27,7 +27,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Torch(),
+      home: BeforeAfter(),
+      // home: Torch(),
       // home: MesmerizingSticks()
       // home: HomePage()
     );
