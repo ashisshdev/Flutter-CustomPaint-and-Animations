@@ -21,17 +21,20 @@ class _BeforeAfterState extends State<BeforeAfter> {
     final w = MediaQuery.of(context).size.width;
     final h = MediaQuery.of(context).size.height;
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Background Remover",
+            textScaleFactor: 1.5, style: TextStyle(color: Colors.black)),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
-              height: h * 0.4,
-              width: w,
-              child: const Images(),
-            ),
-            SizedBox(height: h * 0.3, width: w, child: const Videos())
+            SizedBox(height: h * 0.4, width: w, child: const Images()),
+            SizedBox(height: h * 0.3, width: w, child: const Videos()),
           ],
         ),
       ),
@@ -133,8 +136,8 @@ class _VideosState extends State<Videos> {
                               overlayShape: SliderComponentShape.noOverlay,
                               activeTrackColor: Colors.transparent,
                               inactiveTrackColor: Colors.transparent,
-                              thumbShape: CustomSliderThumbShape(
-                                  sliderheight: h * 0.4, sliderwidth: width)),
+                              thumbShape:
+                                  CustomSliderThumbShape(sliderheight: h * 0.4, sliderwidth: width)),
                           child: Slider(
                             min: 0.0,
                             max: w * 0.95,
@@ -215,8 +218,7 @@ class _ImagesState extends State<Images> {
               overlayShape: SliderComponentShape.noOverlay,
               activeTrackColor: Colors.transparent,
               inactiveTrackColor: Colors.transparent,
-              thumbShape: CustomSliderThumbShape(
-                  sliderheight: h * 0.4, sliderwidth: imageWidthValue)),
+              thumbShape: CustomSliderThumbShape(sliderheight: h * 0.4, sliderwidth: imageWidthValue)),
           child: Slider(
             min: 0.0,
             max: w * 0.95,
@@ -317,7 +319,6 @@ class CustomSliderThumbShape extends SliderComponentShape {
       ..style = PaintingStyle.fill
       ..strokeWidth = 2;
 
-    canvas.drawLine(
-        Offset(sliderwidth + 10, 0), Offset(sliderwidth + 10, sliderheight), linePaint);
+    canvas.drawLine(Offset(sliderwidth + 10, 0), Offset(sliderwidth + 10, sliderheight), linePaint);
   }
 }

@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_declarations, prefer_const_constructors, avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_painter/before_after_clipper.dart';
+
+import 'before_after_clipper.dart';
 // import 'package:flutter_custom_painter/before_after_clipper.dart';
 
 void main() {
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: BeforeAfter(),
+      // home: AlertDilalogScreen(),
       // home: Torch(),
       // home: MesmerizingSticks()
       // home: HomePage()
